@@ -7,6 +7,8 @@ class Controller:
         self.model = model
 
         self.model.on_start_download = self.report_start_download
+        self.model.on_finish_download = self.report_finish_download
+        self.model.on_error_download = self.report_error_download
 
     def start_download(self):
         url = self.view.get_url_entry()
@@ -17,6 +19,12 @@ class Controller:
         
         self.model.start_download(url)
 
-    def report_start_download(self):
+    def report_start_download(self) -> None:
         # El controlador le pide a la vista que muestre algo
-        self.view.show_message("se inciio la descarga")
+        self.view.show_message("Iniciando descarga...")
+
+    def report_finish_download(self) -> None:
+        self.view.show_message("Descarga finalizada :)")
+
+    def report_error_download(self) ->None:
+        self.view.show_message("Ha ocurrido un error desconocido :(")
