@@ -10,7 +10,7 @@ class Controller:
         self.model.on_start_download = self.report_start_download
         self.model.on_finish_download = self.report_finish_download
         self.model.on_error_download = self.report_error_download
-        self.model.on_formats_ready = self.update_view_menu_options
+        self.model.on_formats_ready = self.update_view_options_and_download
 
     def get_formats(self):
         url = self.view.get_url_entry()
@@ -21,9 +21,10 @@ class Controller:
 
         self.model.get_formats(url)
 
-    def update_view_menu_options(self, list_options: list) -> None:
+    def update_view_options_and_download(self, list_options: list) -> None:
+        self.view.show_options_menu()
         self.view.update_formats_options_menu(list_options)
-
+        self.view.show_download_button()
 
     def start_download(self):
         url = self.view.get_url_entry()
