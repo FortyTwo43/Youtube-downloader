@@ -10,37 +10,29 @@ class Controller:
         self.model.on_start_download = self.report_start_download
         self.model.on_finish_download = self.report_finish_download
         self.model.on_error_download = self.report_error_download
-        self.model.on_formats_ready = self.update_view_options_and_download
 
-    def get_formats(self):
+    def show_view_download_buttons(self):
         url = self.view.get_url_entry()
 
-        if url is None:
-            print("url is not valid")
+        if self.model.verify_string(url) == False:
             return
 
-        self.model.get_formats(url)
+        self.view.show_download_buttons()
 
-    def update_view_options_and_download(self, list_options: list) -> None:
-        self.view.show_options_menu()
-        self.view.update_formats_options_menu(list_options)
-        self.view.show_download_button()
-
-    def start_download(self):
+    def start_download(self, _format: str):
         url = self.view.get_url_entry()
-
-        if url is None:
-            print("url is not valid")
+        if self.model.verify_string(url) == False:
             return
-        
-        self.model.start_download(url)
+
+        self.model.start_download(url, _format)
 
     def report_start_download(self) -> None:
-        # El controlador le pide a la vista que muestre algo
         self.view.show_message("Iniciando descarga...")
 
     def report_finish_download(self) -> None:
         self.view.show_message("Descarga finalizada :)")
+        self.view.hide_download_audio_button()
+        self.view.hide_download_video_button()
 
     def report_error_download(self) ->None:
         self.view.show_message("Ha ocurrido un error desconocido :(")

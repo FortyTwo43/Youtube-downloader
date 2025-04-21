@@ -6,7 +6,6 @@ from model.model import Model
 from controller.controller import Controller
 import customtkinter as ctk
 
-
 video_opts_dict = {
         "format": "best",
         "outtmpl": "%(title)s.%(ext)s",
@@ -28,9 +27,15 @@ if __name__ == "__main__":
     ctk.set_default_color_theme("blue")  # Opciones: "blue", "green", "dark-blue", etc.
     
     downloader = Downloader()
+
     video_options = VideoDownloadOpts()
     video_options.set_options(video_opts_dict)
+
+    audio_options = AudioDownloadOpts()
+    audio_options.set_options(audio_opts_dict)
+
     downloader.set_options(video_options)
+    downloader.set_options(audio_options)
 
     model = Model(downloader)  
     controller = Controller(None, model)

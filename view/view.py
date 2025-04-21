@@ -14,40 +14,39 @@ class View(ctk.CTk):
         self.ingreso_URL = ctk.CTkEntry(self, placeholder_text="Ingrese la URL..." , width=465, height=25)
         self.ingreso_URL.place(x=50, y=150)
 
-        self.boton_siguiente = ctk.CTkButton(self, text = "→", command=lambda:self.controller.get_formats(),width=30, height=25)
+        self.boton_siguiente = ctk.CTkButton(self, text = "→", command=lambda:self.controller.show_view_download_buttons(), width=30, height=25)
         self.boton_siguiente.place(x=520, y=150)
+
+        self.download_video_button = ctk.CTkButton(self, text="Descargar Video", command=lambda:self.controller.start_download("video"), width=140, height=30)
+        self.download_audio_button = ctk.CTkButton(self, text="Descargar Audio", command=lambda:self.controller.start_download("audio"), width=140, height=30)
 
         print("Report: main_window was showed successfully")
 
     def get_url_entry(self):
         url = self.ingreso_URL.get()
-
-        if url == "" or url == " ":
-            print("url is not valid")
-            return None
-
         return url
     
     def show_message(self, text: str) -> None:
         download_message = ctk.CTkLabel(self, text= text, text_color="white", font=("Arial", 16), anchor="center", width=500, height=30)
         download_message.place(x=50, y=245)
 
-    def show_download_button(self):
-        self.download_button = ctk.CTkButton(self, text="Descargar", command=lambda:self.controller.start_download(), width=140, height=30)
-        self.download_button.place(x=155, y=200)
-        print("Report: download_button was showed")
+    def show_download_video_button(self):
+        self.download_video_button.place(x=155, y=200)
+        print("Report: download_video_button was showed")
 
-    def show_options_menu(self):
-        self.options_menu = ctk.CTkOptionMenu(self, values=["Seleccione una opción"] ,command=self.seleccted_option, width=140, height=30)
-        self.options_menu.place(x=305, y=200)
-        print("Report: options_menu was showed")
+    def show_download_audio_button(self):
+        self.download_audio_button.place(x=305, y=200)
+        print("Report: download_audio_button was showed")
 
-    def update_formats_options_menu(self, list_options: list) -> None:
-        if list_options:
-            self.options_menu.configure(values=list_options)
-            self.options_menu.set(list_options[0]) # Default is the first in the list_options list
-            print("Report: options_menu was updated with list_options list")
+    def show_download_buttons(self):
+        self.show_download_video_button()
+        self.show_download_audio_button()
 
-    def seleccted_option(self, option):
-        print(option)
+    def hide_download_audio_button(self):
+        self.download_audio_button.place_forget()
+        print("Report: download_audio_button hidden")
+
+    def hide_download_video_button(self):
+        self.download_video_button.place_forget()
+        print("Report: download_video_button hidden")
         
