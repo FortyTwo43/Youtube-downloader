@@ -5,6 +5,7 @@ from view.view import View
 from model.model import Model
 from controller.controller import Controller
 import customtkinter as ctk
+from path import resource_path
 
 video_opts_dict = {
         "format": "best",
@@ -14,7 +15,7 @@ video_opts_dict = {
 audio_opts_dict = {
         "format": "bestaudio/best",
         "outtmpl": "%(title)s.%(ext)s",
-        "ffmpeg_location": "ffmpeg-7.1-essentials_build\\bin",
+        'ffmpeg_location': resource_path("ffmpeg-7.1-essentials_build/bin"),
         "postprocessors": [{
             "key": "FFmpegExtractAudio",
             "preferredcodec": "mp3",

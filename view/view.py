@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from path import resource_path
 
 class View(ctk.CTk):
     def __init__(self, controller):
@@ -9,7 +10,7 @@ class View(ctk.CTk):
         self.title("Youtube Video Downloader")
         self.geometry("600x300")  # Ancho x Alto
         self.resizable(False, False)
-        self.iconbitmap("ico.ico")
+        self.iconbitmap(resource_path("icon/icon.ico"))
 
         self.ingreso_URL = ctk.CTkEntry(self, placeholder_text="Ingrese la URL..." , width=465, height=25)
         self.ingreso_URL.place(x=50, y=150)
